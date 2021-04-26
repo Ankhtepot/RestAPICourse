@@ -35,8 +35,13 @@ namespace MusicApi.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
-        public async Task<IActionResult> GetAlbums()
+        //GET api/albums
+        [HttpGet]
+        public async Task<IActionResult> GetAlbums(int? pageNumber, int? pageSize)
         {
+            int currentPageNumber = pageNumber ?? 1;
+            int currentPageSize = pageSize ?? 3;
+
             var albums = await (from album in _dbContext.Albums
                                  select new
                                  {
@@ -45,7 +50,20 @@ namespace MusicApi.Controllers
                                      ImageUrl = album.ImageUrl
                                  }).ToListAsync(); ;
 
-            return Ok(albums);
+            return Ok(albums.Paginate(currentPageNumber, currentPageSize));
         }
+
+        // GET api/albums/albumdetails?albumid=1
+        [HttpGet("[action]")]
+        public async Task<IActionResult> AlbumDetails(int albumId)
+        {
+            var albumDetails = await _dbContext.Albums
+                .Where(a => a.Id == albumId)
+                .Include(a => a.Songs)
+                .ToListAsync();
+
+            return Ok(albumDetails);
+        }
+
     }
 }
