@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/musicapiserverpz/databases/musicdb",
+      "type": "mssql.azure",
+      "connectionId": "DbConnection",
+      "secretStore": "AzureAppSettings"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/musicstorageaccount2021",
+      "type": "storage.azure",
+      "connectionId": "DbConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
